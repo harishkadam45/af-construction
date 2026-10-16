@@ -1,0 +1,5 @@
+---
+import { imageSizes } from '../data/site.js';
+const { eyebrow, image, alt } = Astro.props;
+---
+<section class="page-hero-wrap"><div class="page-hero"><p class="eyebrow"><span class="dot"></span> {eyebrow}</p><h1><slot/></h1>{Astro.slots.has('intro') && <p class="intro"><slot name="intro"/></p>}</div>{image && <figure class="page-hero-photo"><img src={`/images/projects/${image}.jpg`} alt={alt} width={imageSizes[image][0]} height={imageSizes[image][1]} fetchpriority="high"/></figure>}</section>

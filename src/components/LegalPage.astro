@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from './PageHero.astro';
+import { legalUpdated } from '../data/site.js';
+const { title, description } = Astro.props;
+---
+<Layout title={`${title} | AF Construction`} description={description} breadcrumb={title}>
+<PageHero eyebrow={`LEGAL / UPDATED ${legalUpdated.toUpperCase()}`}>{title}</PageHero>
+<section class="section legal"><div class="legal-body"><slot/></div></section>
+</Layout>

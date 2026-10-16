@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { instagram } from '../data/site.js';
+const values = [
+ ['Design','Thoughtful planning, from architectural and structural design to permits.'],
+ ['Build','Quality craftsmanship on every site, from the foundation up.'],
+ ['Deliver','Spaces built to last, made for the way you live.'],
+];
+---
+<Layout title="About Alex Nouri | AF Construction, Los Angeles Contractor" description="Meet Alex Nouri, owner of AF Construction, a Los Angeles general contractor bringing design, construction and home services together for homeowners across LA." breadcrumb="About us" image="/images/projects/alex-new-build.jpg">
+<PageHero eyebrow="ABOUT AF CONSTRUCTION">Meet Alex Nouri.<br/><em>Your Los Angeles builder.</em></PageHero>
+<section class="about section"><figure class="about-art reveal"><img src="/images/projects/alex-new-build.jpg" alt="Alex Nouri, owner of AF Construction, on site at a new ground-up home" width="470" height="790" loading="lazy"/><figcaption>ALEX NOURI ON SITE / AF CONSTRUCTION</figcaption></figure><div class="about-copy reveal"><p class="eyebrow">THE PEOPLE BEHIND THE BUILD</p><h2>Your space. Our commitment.<br/><em>A shared vision.</em></h2><p>AF Construction is led by Alex Nouri and serves the Los Angeles area. We bring design, construction, and essential home services together, helping you move from an idea to a space that works for you.</p><p>Whether you’re planning a renovation, installing cabinetry, or looking after your home’s systems, it starts with a conversation about what you need.</p><a class="text-link" href={instagram} target="_blank" rel="noopener noreferrer">Get to know us on Instagram <span>↗</span></a><div class="about-location"><span>↗</span><div>ROOTED IN LOS ANGELES<small>Serving Los Angeles and the surrounding area</small></div></div></div></section>
+<section class="section values"><div class="values-grid">{values.map(([t,d],i) => <article class="reveal"><span>{`0${i + 1}`}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
+<Process/>
+<CtaBand/>
+</Layout>

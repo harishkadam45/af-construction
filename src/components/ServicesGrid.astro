@@ -1,0 +1,5 @@
+---
+import { services } from '../data/site.js';
+const symbols = { '01': '⌑', '02': '⌂', '03': '⌁', '04': '⊞' };
+---
+<div class="services-grid">{services.map(([number,title,description,items]) => <article class="service reveal"><div class="service-top"><span>{number}</span><span class="service-symbol">{symbols[number]}</span></div><h3>{title}</h3><p>{description}</p><ul>{items.map(item => <li>{item}</li>)}</ul><a href={`/contact/?service=${encodeURIComponent(title)}`} class="service-link">Discuss your project <span>↗</span></a></article>)}</div>

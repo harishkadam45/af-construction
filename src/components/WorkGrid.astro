@@ -1,0 +1,5 @@
+---
+import { photos, imageSizes } from '../data/site.js';
+const { limit = photos.length } = Astro.props;
+---
+<div class="work-grid">{photos.slice(0, limit).map(([file,alt,label]) => <figure class="work-photo reveal"><img src={`/images/projects/${file}.jpg`} alt={alt} width={imageSizes[file][0]} height={imageSizes[file][1]} loading="lazy" decoding="async"/><figcaption>{label}</figcaption></figure>)}</div>

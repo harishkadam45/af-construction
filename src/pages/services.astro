@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import Process from '../components/Process.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services, serviceDetails, faqs, imageSizes } from '../data/site.js';
+const faqSchema = { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+---
+<Layout title="Construction Services in Los Angeles | AF Construction" description="Design and permits, ground-up construction, electrical, plumbing, HVAC and custom cabinetry from AF Construction, a Los Angeles general contractor. Free estimates." breadcrumb="Services" image="/images/projects/framing-crew.jpg" schema={[faqSchema]}>
+<PageHero eyebrow="CONSTRUCTION SERVICES IN LOS ANGELES" image="framing-crew" alt="AF Construction crew framing a house in Pacific Palisades, Los Angeles">Construction services<br/><em>for Los Angeles homes.</em><Fragment slot="intro">From permits and foundations to plumbing, electrical and custom cabinetry, AF Construction brings every stage of your project together.</Fragment></PageHero>
+<section class="section services"><ServicesGrid/></section>
+<section class="section service-details">{services.map(([number,title,,items]) => { const [file,alt,copy] = serviceDetails[title]; return <article class="service-detail reveal"><figure><img src={`/images/projects/${file}.jpg`} alt={alt} width={imageSizes[file][0]} height={imageSizes[file][1]} loading="lazy"/></figure><div><p class="eyebrow">{number} / SERVICE</p><h2>{title}</h2><p>{copy}</p><ul>{items.map(item => <li>{item}</li>)}</ul><a class="text-link" href={`/contact/?service=${encodeURIComponent(title)}`}>Discuss your project <span>↗</span></a></div></article>; })}</section>
+<section class="section faq" id="faq"><div class="section-heading reveal"><p class="eyebrow">FREQUENTLY ASKED QUESTIONS</p><h2>Questions about<br/><em>working with AF Construction.</em></h2></div><div class="faq-list">{faqs.map(([q, a]) => <details class="faq-item reveal"><summary><h3>{q}</h3><span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
+<Process/>
+<CtaBand/>
+</Layout>

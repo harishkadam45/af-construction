@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+import { nav, legal, phone, instagram, yelp, business, services } from '../data/site.js';
+const {
+ title = 'AF Construction | General Contractor in Los Angeles, CA',
+ description = 'Los Angeles general contractor for design, permits, new construction, electrical, plumbing, HVAC and cabinetry. Call (310) 424-8000 for a free estimate.',
+ image = business.image,
+ breadcrumb,
+ schema = [],
+} = Astro.props;
+const path = Astro.url.pathname.replace(/\/?$/, '/');
+const origin = Astro.site ?? Astro.url;
+const canonical = new URL(path, origin);
+const imageUrl = new URL(image, origin);
+const home = new URL('/', origin).href;
+const businessId = `${home}#business`;
+// Structured data on every page: the business itself and the website
+const graph = [
+ {
+  '@type': ['GeneralContractor', 'LocalBusiness'],
+  '@id': businessId,
+  name: business.name,
+  description: business.description,
+  url: home,
+  telephone: business.telephone,
+  image: new URL(business.image, origin).href,
+  logo: new URL('/favicon.svg', origin).href,
+  founder: { '@type': 'Person', name: business.owner },
+  employee: { '@type': 'Person', name: business.owner, jobTitle: 'Owner' },
+  address: { '@type': 'PostalAddress', addressLocality: business.locality, addressRegion: business.region, postalCode: business.postalCode, addressCountry: business.country },
+  geo: { '@type': 'GeoCoordinates', ...business.geo },
+  areaServed: business.areaServed.map(name => ({ '@type': 'City', name })),
+  openingHoursSpecification: business.hours.map(h => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.days, opens: h.opens, closes: h.closes })),
+  sameAs: [instagram, yelp],
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Construction services', itemListElement: services.map(([, name, , items]) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name, description: items.join(', '), areaServed: business.locality, provider: { '@id': businessId } } })) },
+ },
+ { '@type': 'WebSite', '@id': `${home}#website`, url: home, name: business.name, publisher: { '@id': businessId }, inLanguage: 'en-US' },
+ { '@type': 'WebPage', '@id': `${canonical.href}#webpage`, url: canonical.href, name: title, description, isPartOf: { '@id': `${home}#website` }, about: { '@id': businessId }, primaryImageOfPage: imageUrl.href, inLanguage: 'en-US' },
+ ...(breadcrumb ? [{ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: home }, { '@type': 'ListItem', position: 2, name: breadcrumb, item: canonical.href }] }] : []),
+ ...schema,
+];
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\u003c');
+---
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta name="robots" content="index, follow, max-image-preview:large"/><meta name="theme-color" content="#f4f1e9"/>
+<meta property="og:type" content="website"/><meta property="og:site_name" content="AF Construction"/><meta property="og:locale" content="en_US"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:image" content={imageUrl}/><meta property="og:image:alt" content="AF Construction project in Los Angeles"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={imageUrl}/>
+<meta name="geo.region" content="US-CA"/><meta name="geo.placename" content="Los Angeles"/><meta name="geo.position" content="34.0522;-118.2437"/><meta name="ICBM" content="34.0522, -118.2437"/>
+<link rel="icon" href="/favicon.svg"/><link rel="sitemap" href="/sitemap.xml"/><link rel="alternate" type="application/rss+xml" title="AF Construction" href="/rss.xml"/><link rel="preconnect" href="https://www.instagram.com"/>
+<script type="application/ld+json" set:html={jsonLd}></script></head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+<header><a class="brand" href="/" aria-label="AF Construction home"><span class="brand-mark">AF<span>®</span></span><span>CONSTRUCTION<span>LOS ANGELES, CA</span></span></a><nav aria-label="Main navigation">{nav.map(([href,label]) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}</nav><a class="header-cta" href={phone.href}>LET’S TALK <span>↗</span></a><button class="menu" aria-label="Open navigation" aria-expanded="false">☰</button></header>
+<main id="main"><slot/></main>
+<footer><a class="brand" href="/"><span class="brand-mark">AF</span><span>CONSTRUCTION<span>BUILT AROUND YOUR VISION.</span></span></a><p>Los Angeles, California<br/><a href={phone.href}>{phone.label}</a><br/>© {new Date().getFullYear()} AF Construction</p><div class="footer-pages">{nav.slice(1).map(([href,label]) => <a href={href}>{label}</a>)}</div><div><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={yelp} target="_blank" rel="noopener noreferrer">Yelp ↗</a><a href="#main">Back to top ↑</a></div><div class="footer-legal" role="navigation" aria-label="Legal and site links">{legal.map(([href,label]) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}</div></footer>
+<script>
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+const media = gsap.matchMedia();
+media.add('(prefers-reduced-motion: no-preference)', () => { const intro = gsap.utils.toArray<HTMLElement>('.hero-copy > *, .page-hero > *'); if (intro.length) gsap.from(intro, {y:24, opacity:0, stagger:.12, duration:1, ease:'power3.out'}); gsap.utils.toArray<HTMLElement>('.reveal').forEach(el => gsap.from(el,{y:35,opacity:0,duration:.85,scrollTrigger:{trigger:el,start:'top 92%',once:true}})); });
+const menu=document.querySelector<HTMLButtonElement>('.menu')!;
+menu.addEventListener('click',()=>{const expanded=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!expanded));document.querySelector('nav')?.classList.toggle('open',!expanded);});
+const select=document.querySelector<HTMLSelectElement>('[name="service"]');
+const requested=new URLSearchParams(location.search).get('service');
+if(select&&requested&&[...select.options].some(o=>o.value===requested)) select.value=requested;
+document.querySelector('#estimate-form')?.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.target as HTMLFormElement);(document.querySelector('#summary') as HTMLTextAreaElement).value=`Hi Alex, my name is ${data.get('name')}. I'm interested in ${data.get('service')}.\n\n${data.get('details')}\n\nCould we discuss a free estimate?`;document.querySelector<HTMLElement>('#inquiry-result')!.hidden=false;});
+document.querySelector('#copy-summary')?.addEventListener('click',async e=>{const summary=document.querySelector('#summary') as HTMLTextAreaElement;try{await navigator.clipboard.writeText(summary.value);(e.target as HTMLElement).textContent='Copied ✓';}catch{summary.select();(e.target as HTMLElement).textContent='Select and copy the summary above';}});
+</script></body></html>

@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import Reels from '../components/Reels.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Layout title="Construction Projects in Los Angeles | AF Construction" description="Photos and videos from AF Construction job sites in Los Angeles, Pacific Palisades and Malibu: new homes, framing, foundations, excavation, demolition and kitchens." breadcrumb="Projects" image="/images/projects/alex-new-build.jpg">
+<PageHero eyebrow="PROJECTS IN LOS ANGELES">Real projects.<br/><em>Built across Los Angeles.</em><Fragment slot="intro">Framing, foundations, finishes and more, straight from Alex’s job sites across Los Angeles.</Fragment></PageHero>
+<section class="section work"><h2 class="visually-hidden">Project photos</h2><WorkGrid/><Reels/></section>
+<CtaBand/>
+</Layout>

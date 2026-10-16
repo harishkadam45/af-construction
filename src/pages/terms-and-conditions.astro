@@ -1,0 +1,34 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { phone } from '../data/site.js';
+---
+<LegalPage title="Terms & Conditions" description="The terms for using the AF Construction website.">
+<p>These Terms and Conditions apply to your use of the AF Construction website. By using this website, you agree to these terms. If you do not agree, please do not use the website.</p>
+
+<h2>Website information</h2>
+<p>The content on this website is for general information about AF Construction and our services. It is not a quote, contract or professional advice for your specific project. Services, availability and hours may change without notice.</p>
+
+<h2>Estimates and project agreements</h2>
+<p>Any estimate, price or timeline discussed through this website, by phone or by message is not binding until it is confirmed in a written agreement signed by you and AF Construction. The terms of that written agreement govern the work, payment, warranties and responsibilities for your project.</p>
+
+<h2>Photos and content</h2>
+<p>Photos, videos, text and logos on this website belong to AF Construction or are used with permission. You may not copy, reuse or distribute them for commercial purposes without our written permission. Project photos show work in progress and completed work; results on your project may differ.</p>
+
+<h2>Links to other websites</h2>
+<p>This website links to and embeds content from other services, such as Instagram and Yelp. We are not responsible for the content, availability or privacy practices of those services.</p>
+
+<h2>Use of the website</h2>
+<p>You agree not to misuse this website, including attempting to disrupt it, gain unauthorized access to it or use it for any unlawful purpose.</p>
+
+<h2>Limitation of liability</h2>
+<p>This website is provided "as is". To the fullest extent allowed by law, AF Construction is not liable for any loss or damage arising from your use of, or reliance on, this website or its content.</p>
+
+<h2>Governing law</h2>
+<p>These terms are governed by the laws of the State of California. Any dispute about this website will be handled in the courts of Los Angeles County, California.</p>
+
+<h2>Changes to these terms</h2>
+<p>We may update these terms at any time. The date at the top of this page shows when they were last changed. Continuing to use the website means you accept the updated terms.</p>
+
+<h2>Contact</h2>
+<p>Questions about these terms? Call AF Construction at <a href={phone.href}>{phone.label}</a> or visit our <a href="/contact/">Contact page</a>.</p>
+</LegalPage>

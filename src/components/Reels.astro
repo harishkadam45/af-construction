@@ -1,0 +1,5 @@
+---
+import { reels, instagram } from '../data/site.js';
+---
+<div class="reels-heading reveal"><h3>On site, in motion.</h3><a class="text-link" href={instagram} target="_blank" rel="noopener noreferrer">More on Instagram <span>↗</span></a></div>
+<div class="reels-grid">{reels.map(([id,title]) => <div class="reel reveal"><iframe src={`https://www.instagram.com/reel/${id}/embed/`} title={`Instagram reel: ${title}`} loading="lazy" allowfullscreen scrolling="no"></iframe></div>)}</div>
