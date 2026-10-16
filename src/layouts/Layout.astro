@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { nav, legal, phone, instagram, yelp, business, services } from '../data/site.js';
+import { nav, legal, machineFiles, phone, instagram, yelp, business, services } from '../data/site.js';
 const {
  title = 'AF Construction | General Contractor in Los Angeles, CA',
  description = 'Los Angeles general contractor for design, permits, new construction, electrical, plumbing, HVAC and cabinetry. Call (310) 424-8000 for a free estimate.',
@@ -52,7 +52,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 <a href="#main" class="skip">Skip to content</a>
 <header><a class="brand" href="/" aria-label="AF Construction home"><span class="brand-mark">AF<span>®</span></span><span>CONSTRUCTION<span>LOS ANGELES, CA</span></span></a><nav aria-label="Main navigation">{nav.map(([href,label]) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}</nav><a class="header-cta" href={phone.href}>LET’S TALK <span>↗</span></a><button class="menu" aria-label="Open navigation" aria-expanded="false">☰</button></header>
 <main id="main"><slot/></main>
-<footer><a class="brand" href="/"><span class="brand-mark">AF</span><span>CONSTRUCTION<span>BUILT AROUND YOUR VISION.</span></span></a><p>Los Angeles, California<br/><a href={phone.href}>{phone.label}</a><br/>© {new Date().getFullYear()} AF Construction</p><div class="footer-pages">{nav.slice(1).map(([href,label]) => <a href={href}>{label}</a>)}</div><div><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={yelp} target="_blank" rel="noopener noreferrer">Yelp ↗</a><a href="#main">Back to top ↑</a></div><div class="footer-legal" role="navigation" aria-label="Legal and site links">{legal.map(([href,label]) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}</div></footer>
+<footer><a class="brand" href="/"><span class="brand-mark">AF</span><span>CONSTRUCTION<span>BUILT AROUND YOUR VISION.</span></span></a><p>Los Angeles, California<br/><a href={phone.href}>{phone.label}</a><br/>© {new Date().getFullYear()} AF Construction</p><div class="footer-pages">{nav.slice(1).map(([href,label]) => <a href={href}>{label}</a>)}</div><div><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={yelp} target="_blank" rel="noopener noreferrer">Yelp ↗</a><a href="#main">Back to top ↑</a></div><div class="footer-legal" role="navigation" aria-label="Legal and site links">{legal.map(([href,label]) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}{machineFiles.map(label => <span>{label}</span>)}</div></footer>
 <script>
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

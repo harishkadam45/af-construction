@@ -7,10 +7,10 @@ export const legal = [
  ['/privacy-policy/', 'Privacy Policy'],
  ['/terms-and-conditions/', 'Terms & Conditions'],
  ['/cookie-policy/', 'Cookie Policy'],
- ['/sitemap.xml', 'Sitemap'],
- ['/rss.xml', 'RSS'],
- ['/robots.txt', 'Robots.txt'],
 ];
+
+// Machine-readable files: shown as plain footer text (not links); crawlers find them via robots.txt and <head> tags
+export const machineFiles = ['Sitemap', 'RSS', 'Robots.txt'];
 
 export const nav = [
  ['/', 'Home'],
